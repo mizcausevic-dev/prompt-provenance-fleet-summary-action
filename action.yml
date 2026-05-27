@@ -1,0 +1,37 @@
+name: "Prompt Provenance Fleet Summary"
+description: "Walk a directory of prompt-provenance docs, count by approval state, surface governance gaps (approved-without-evaluations, approved-without-reviewer, evaluation-failing-on-approved, deprecated-still-referenced, etc.), post a Markdown summary as a PR comment, and fail the build when high-severity findings exist."
+author: "mizcausevic-dev"
+branding:
+  icon: "edit-3"
+  color: "purple"
+
+inputs:
+  prompts-dir:
+    description: "Directory containing *.json prompt-provenance documents."
+    required: true
+  comment-on-pr:
+    description: "Post the Markdown summary as a PR comment. 'auto' (default) posts only on pull_request events; 'true' / 'false' force the behavior."
+    required: false
+    default: "auto"
+  fail-on-high:
+    description: "Fail the run when any high-severity finding is present (default 'true')."
+    required: false
+    default: "true"
+  github-token:
+    description: "Token used to post the PR comment (defaults to GITHUB_TOKEN)."
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  total-prompts:
+    description: "Number of provenance documents analyzed."
+  high-findings:
+    description: "Count of high-severity findings."
+  approved-count:
+    description: "Number of approved prompts in the fleet."
+  deprecated-count:
+    description: "Number of deprecated prompts in the fleet."
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
