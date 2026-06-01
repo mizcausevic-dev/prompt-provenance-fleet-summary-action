@@ -1,5 +1,5 @@
 name: "Prompt Provenance Fleet Summary"
-description: "Walk a directory of prompt-provenance docs, count by approval state, surface governance gaps (approved-without-evaluations, approved-without-reviewer, evaluation-failing-on-approved, deprecated-still-referenced, etc.), post a Markdown summary as a PR comment, and fail the build when high-severity findings exist."
+description: "Walk a directory of prompt-provenance docs, surface governance gaps, post summary on PR, fail on high severity."
 author: "mizcausevic-dev"
 branding:
   icon: "edit-3"
